@@ -1,0 +1,28 @@
+html
+  head
+    include ./imports.jade  
+  body
+    .container
+      nav.navbar.navbar-default
+        .container-fluid
+          .navbar-header
+            button.navbar-toggle.collapsed(type="button",data-toggle("collapse"), data-target("#navbar"), aria-expanded="false", aria-controls="navbar")
+              span.sr-only Toggle Navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-brand Vote!
+          #navbar.navbar-collapse.collapse
+            ul.nav.navbar-nav.navbar-right
+              li.home-btn(class="#{ishome}")
+                a(href="#{toHome}") Home
+      .panel.panel-default.panel-primary
+        .panel-heading #{heading} 
+        .panel-body
+          .content
+            block content
+    ul#messages
+    form
+      input#m(type="text")
+      input(type="submit")
+
