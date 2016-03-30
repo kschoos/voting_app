@@ -6,6 +6,9 @@ Routes.prototype.setDB = function(db){
 }
 
 Routes.prototype.home = function(req, res){
+  database.collection("polls").find().toArray(function(documents){
+    console.log(documents);
+  })
   res.send({header: "Home", content: "It works!"});
 }
 
