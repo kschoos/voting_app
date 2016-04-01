@@ -1,0 +1,55 @@
+a {
+  outline: none !important;
+}
+
+h1, h4{
+  text-align: center;
+}
+
+h1 {
+  text-decoration: underline;
+}
+
+.panel-custom > .panel-heading{
+  background-color: #FF6103 !important;
+  color: white !important;
+}
+
+.btn-custom{
+  margin: 5px;
+  background-color: #FF6103 !important;
+  color: white !important;
+}
+
+.content{
+  position: relative;
+}
+
+#chart_div div{
+  margin: auto;
+}
+
+#chart_div{
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  width: 50%;
+}
+
+.choice-form{
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  width: 50%;
+}
+
+.twitter-button{
+  position: relative;
+  left: 50%;  
+  width: 150px;
+}
+
+.content .radio label{
+  margin: 5px;
+}

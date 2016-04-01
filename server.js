@@ -1,4 +1,5 @@
 var express = require("express");
+var bodyparser = require("body-parser");
 var strftime = require("strftime");
 var routes = require("./routes/routes.js")
 var app = express();
@@ -6,6 +7,19 @@ var port = process.env.PORT || 5000;
 var passport = require("passport");
 var GithubStrategy = require("passport-github").Strategy;
 var mongo = require("mongodb").MongoClient;
+var session = require("express-session")
+var MongoStore = require("connect-mongo")(session)
+var database = {};
+
+app.use(bodyparser.urlencoded({ extended: true }));
+
+app.use(require("express-session")({
+  secret: "wambudendudi",
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({ url: process.env.MONGOLAB_URI})
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -24,11 +38,11 @@ passport.use(new GithubStrategy({
 
 mongo.connect(process.env.MONGOLAB_URI, function(err, db){
   console.log("Connected successfully to MongoDB");
+  database = db;
   routes.setDB(db);
 })
 
 passport.serializeUser(function(user, done) {
-    console.log(user);
     done(null, user);
 });
 passport.deserializeUser(function(user, done) {
@@ -37,20 +51,22 @@ passport.deserializeUser(function(user, done) {
 
 app.set("view engine", "jade");
 app.use(express.static(__dirname + "/public"));
-app.get("/", function(req, res){
-  res.render("index", {isHome: true, toHome: "./", current: ""});
-})
 app.get("/auth/github", passport.authenticate("github"));
 app.get("/auth/github/callback", passport.authenticate("github", {
-  successRedirect: "/success",
-  failureRedirect: "/error"
-}), function(req, res){
-  console.log(req.user);
-})
-app.get("/success", function(req, res){
+    successRedirect: "/success",
+    failureRedirect: "/error"
+  }), function(req, res){
 })
 
+app.get("/logout", routes.logout);
+app.get("/success", routes.success);
+app.get("/",  routes.home);
 app.post("/home", routes.home);
+app.post("/mypolls", routes.myPolls);
+app.post("/allpolls", routes.allPolls);
+app.post("/submitpoll", routes.submitPoll);
+app.post("/getpoll", routes.getPoll);
+app.post("/submitchoice", routes.submitChoice);
 
 
 app.listen(port, function(){

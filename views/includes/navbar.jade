@@ -1,0 +1,9 @@
+li.home-btn
+  a(href="javascript:showAllPolls();") Home
+if authed
+  li.mypolls-btn
+    a(href="javascript:showMyPolls();") My Polls 
+  li.createpoll-btn
+    a(href="javascript:createNewPoll();") New Poll 
+li.login-btn
+  a(href="#{loginlink}") #{login}

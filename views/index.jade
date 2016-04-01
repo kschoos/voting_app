@@ -1,6 +1,6 @@
 html
   head
-    include ./imports.jade  
+    include ./includes/imports.jade  
   body
     .container
       nav.navbar.navbar-default
@@ -11,20 +11,17 @@ html
               span.icon-bar
               span.icon-bar
               span.icon-bar
-            a.navbar-brand Vote!
+            a.navbar-brand(href="javascript:showAllPolls();") Vote!
           #navbar.navbar-collapse.collapse
             ul.nav.navbar-nav.navbar-right
-              li.home-btn(class="#{ishome}")
-                a(href="#{toHome}") Home
-              li.login-btn
-                a(href="/auth/github") Github Login
-      .panel.panel-default.panel-primary
-        .panel-heading #{heading} 
+              include ./includes/navbar.jade
+      .panel.panel-default.panel-custom
+        .panel-heading #{heading}
         .panel-body
-          .content
-            block content
-    ul#messages
-    form
-      input#m(type="text")
-      input(type="submit")
+          .content-header
+            h1
+            h4
+          .content 
+    script.
+      var authed = #{authed}
 
