@@ -29,7 +29,7 @@ var GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 passport.use(new GithubStrategy({
   clientID: GITHUB_CLIENT_ID,
   clientSecret: GITHUB_CLIENT_SECRET,
-  callbackURL: "http://localhost:5000/auth/github/callback"
+  callbackURL: "https://secret-wave-64691.herokuapp.com/auth/github/callback"
 }, function(accessToken, refreshToken, profile, done){
   process.nextTick(function(){
     return done(null, profile);
